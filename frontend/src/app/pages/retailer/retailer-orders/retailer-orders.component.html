@@ -1,10 +1,9 @@
 <!-- src/app/pages/retailer/retailer-orders/retailer-orders.component.html -->
-<div class="bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-lg border border-gray-100">
+<div class="bg-slate-900/40 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-slate-700/30">
   <div class="flex justify-between items-center mb-6">
     <div>
-      <h2 class="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">Purchase
-        Orders</h2>
-      <p class="text-sm text-gray-500 mt-1">Manage your procurement pipeline</p>
+      <h2 class="text-2xl font-bold text-white">Purchase Orders</h2>
+      <p class="text-sm text-slate-400 mt-1">Manage your procurement pipeline</p>
     </div>
     <button (click)="openCreateModal()"
       class="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-lg font-semibold hover:from-emerald-700 hover:to-emerald-800 transition-all shadow-lg hover:shadow-xl flex items-center gap-2">
@@ -17,8 +16,8 @@
 
   <div *ngIf="orders.length > 0; else emptyState" class="overflow-x-auto">
     <table class="w-full text-left table-auto">
-      <thead class="text-xs text-slate-500 uppercase">
-        <tr>
+      <thead class="text-xs text-slate-400 uppercase">
+        <tr class="border-b border-slate-700/30">
           <th class="px-4 py-2">PO ID</th>
           <th class="px-4 py-2">Supplier</th>
           <th class="px-4 py-2">Created</th>
@@ -29,19 +28,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let o of orders" class="border-t hover:bg-slate-50">
-          <td class="px-4 py-3">{{ o.id }}</td>
-          <td class="px-4 py-3">{{ o.supplier }}</td>
-          <td class="px-4 py-3">{{ o.createdAt | date:'mediumDate' }}</td>
-          <td class="px-4 py-3">{{ o.items }}</td>
-          <td class="px-4 py-3">₹ {{ o.total }}</td>
+        <tr *ngFor="let o of orders" class="border-b border-slate-700/30 hover:bg-slate-800/30 transition-colors">
+          <td class="px-4 py-3 text-slate-300">{{ o.id }}</td>
+          <td class="px-4 py-3 text-slate-300">{{ o.supplier }}</td>
+          <td class="px-4 py-3 text-slate-300">{{ o.createdAt | date:'mediumDate' }}</td>
+          <td class="px-4 py-3 text-slate-300">{{ o.items }}</td>
+          <td class="px-4 py-3 text-slate-300">₹ {{ o.total }}</td>
           <td class="px-4 py-3">
             <span class="px-3 py-1 rounded-full text-xs" [ngClass]="statusClass(o.status)">{{
               o.status
               }}</span>
           </td>
           <td class="px-4 py-3">
-            <button (click)="view(o)" class="px-3 py-1 bg-sky-100 text-sky-800 rounded">
+            <button (click)="view(o)" class="px-3 py-1 bg-sky-600/30 border border-sky-600/50 text-sky-300 rounded hover:bg-sky-600/40 transition-colors">
               View
             </button>
           </td>
@@ -50,9 +49,12 @@
     </table>
   </div>
   <ng-template #emptyState>
-    <div class="text-center py-10 text-gray-500">
+    <div class="text-center py-10 text-slate-400">
+      <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
       <p>No purchase orders found.</p>
-      <button class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+      <button (click)="openCreateModal()" class="mt-4 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded hover:from-emerald-500 hover:to-teal-500 transition-all">
         Create First PO
       </button>
     </div>
@@ -60,38 +62,37 @@
 </div>
 
 <!-- Create PO Modal -->
-<div *ngIf="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+<div *ngIf="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
   (click)="closeCreateModal()">
-  <div class="bg-white rounded-xl shadow-2xl p-6 max-w-lg w-full mx-4" (click)="$event.stopPropagation()">
+  <div class="bg-slate-900/80 backdrop-blur rounded-xl shadow-2xl p-6 max-w-lg w-full mx-4 border border-slate-700/50" (click)="$event.stopPropagation()">
     <div class="flex justify-between items-center mb-6">
-      <h3 class="text-xl font-bold text-gray-900">Create Purchase Order</h3>
-      <button (click)="closeCreateModal()" class="text-gray-400 hover:text-gray-600">&times;</button>
+      <h3 class="text-xl font-bold text-white">Create Purchase Order</h3>
+      <button (click)="closeCreateModal()" class="text-slate-400 hover:text-slate-300">&times;</button>
     </div>
 
     <div class="space-y-4">
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Supplier ID / Name</label>
+        <label class="block text-sm font-medium text-slate-300 mb-1">Supplier ID / Name</label>
         <input [(ngModel)]="newOrder.supplierId" type="text"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 box-border">
+          class="w-full border border-slate-700 bg-slate-800/50 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 box-border placeholder-slate-500">
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Items (Quantity)</label>
+        <label class="block text-sm font-medium text-slate-300 mb-1">Items (Quantity)</label>
         <input [(ngModel)]="newOrder.items" type="number"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 box-border">
+          class="w-full border border-slate-700 bg-slate-800/50 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 box-border placeholder-slate-500">
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Estimated Total (₹)</label>
+        <label class="block text-sm font-medium text-slate-300 mb-1">Estimated Total (₹)</label>
         <input [(ngModel)]="newOrder.total" type="number"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 box-border">
+          class="w-full border border-slate-700 bg-slate-800/50 text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 box-border placeholder-slate-500">
       </div>
     </div>
 
     <div class="mt-8 flex justify-end gap-3">
       <button (click)="closeCreateModal()"
-        class="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg">Cancel</button>
+        class="px-4 py-2 text-slate-300 font-medium hover:bg-slate-800 rounded-lg transition-colors">Cancel</button>
       <button (click)="createOrder()"
-        class="px-6 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 shadow-sm">Create
-        Order</button>
+        class="px-6 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-medium rounded-lg hover:from-emerald-500 hover:to-teal-500 transition-all shadow-lg">Create Order</button>
     </div>
   </div>
 </div>

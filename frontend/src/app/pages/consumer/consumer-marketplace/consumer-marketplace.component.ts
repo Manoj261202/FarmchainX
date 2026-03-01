@@ -9,18 +9,18 @@ import { CartSidebarComponent } from '../cart-sidebar/cart-sidebar.component';
     standalone: true,
     imports: [CommonModule, CartSidebarComponent],
     template: `
-    <div class="space-y-6 relative">
+    <div class="space-y-6 relative bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 p-6">
       <app-cart-sidebar *ngIf="isCartOpen()" (close)="isCartOpen.set(false)"></app-cart-sidebar>
 
       <!-- Header Section -->
       <div class="flex items-center justify-between">
         <div>
-           <h2 class="text-3xl font-bold text-slate-900">Marketplace</h2>
-           <p class="text-slate-500 mt-1">Fresh crops directly from verified farmers</p>
+           <h2 class="text-3xl font-bold text-white">Marketplace</h2>
+           <p class="text-slate-300 mt-1">Fresh crops directly from verified farmers</p>
         </div>
         
         <!-- Cart Button -->
-        <button (click)="isCartOpen.set(true)" class="relative p-3 text-gray-600 hover:text-emerald-600 border-2 border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-all">
+        <button (click)="isCartOpen.set(true)" class="relative p-3 text-slate-300 hover:text-emerald-300 border-2 border-slate-700 rounded-xl bg-slate-800/30 shadow-sm hover:shadow-lg transition-all">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
@@ -33,9 +33,9 @@ import { CartSidebarComponent } from '../cart-sidebar/cart-sidebar.component';
 
       <!-- Product Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <div *ngFor="let product of products()" class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col group">
+        <div *ngFor="let product of products()" class="bg-white/5 rounded-xl shadow-lg border border-slate-700/30 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col group">
             <!-- Product Image -->
-            <div class="h-52 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 relative">
+            <div class="h-52 overflow-hidden bg-slate-800 relative">
                 <img [src]="product.imagePath || 'assets/placeholder.jpg'" [alt]="product.cropName" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                 
                 <!-- Quality Grade Badge -->
@@ -50,11 +50,11 @@ import { CartSidebarComponent } from '../cart-sidebar/cart-sidebar.component';
                 </div>
 
                 <!-- Sold Out Badge -->
-                <div *ngIf="product.quantity <= 0 || product.isSold" class="absolute top-3 left-3 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-md bg-red-100 text-red-700">
+                <div *ngIf="product.quantity <= 0 || product.isSold" class="absolute top-3 left-3 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-md bg-red-800/60 text-red-300">
                     Sold Out
                 </div>
                 <!-- In Stock Badge -->
-                <div *ngIf="product.quantity > 0 && !product.isSold" class="absolute top-3 left-3 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-md bg-green-100 text-green-700">
+                <div *ngIf="product.quantity > 0 && !product.isSold" class="absolute top-3 left-3 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-md bg-emerald-800/60 text-emerald-300">
                     Available
                 </div>
             </div>
@@ -63,17 +63,17 @@ import { CartSidebarComponent } from '../cart-sidebar/cart-sidebar.component';
             <div class="p-5 flex-1 flex flex-col">
                 <!-- Product Name & Farmer -->
                 <div class="mb-3">
-                    <h3 class="font-bold text-gray-900 text-lg leading-tight">{{ product.cropName }}</h3>
-                    <p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                    <h3 class="font-bold text-white text-lg leading-tight">{{ product.cropName }}</h3>
+                    <p class="text-xs text-slate-400 mt-1 flex items-center gap-1">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        <span class="font-medium text-emerald-600">{{ product.farmerName || 'Verified Farmer' }}</span>
+                        <span class="font-medium text-emerald-300">{{ product.farmerName || 'Verified Farmer' }}</span>
                     </p>
                 </div>
                 
                 <!-- Product Info -->
-                <div class="text-sm text-gray-600 mb-4 space-y-1 flex-1">
+                <div class="text-sm text-slate-400 mb-4 space-y-1 flex-1">
                     <div class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -98,10 +98,10 @@ import { CartSidebarComponent } from '../cart-sidebar/cart-sidebar.component';
                 </div>
                 
                 <!-- Price & Action -->
-                <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
+                <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-700/20">
                     <div>
-                        <span class="text-2xl font-bold text-emerald-700">₹{{ product.price || 120 }}</span>
-                        <span class="text-xs text-gray-400 font-normal">/kg</span>
+                        <span class="text-2xl font-bold text-emerald-300">₹{{ product.price || 120 }}</span>
+                        <span class="text-xs text-slate-400 font-normal">/kg</span>
                     </div>
                     <button (click)="addToCart(product)" [disabled]="(product.quantity || 0) <= 0 || product.isSold" 
                         class="bg-gradient-to-r from-emerald-600 to-green-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:from-emerald-700 hover:to-green-700 transition-all flex items-center gap-2 shadow-lg shadow-emerald-200 hover:shadow-emerald-300 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:from-gray-400 disabled:to-gray-500 disabled:shadow-none">
@@ -115,12 +115,12 @@ import { CartSidebarComponent } from '../cart-sidebar/cart-sidebar.component';
         </div>
 
         <!-- Empty State -->
-        <div *ngIf="products().length === 0" class="col-span-full py-20 text-center">
-            <div class="inline-block p-6 rounded-full bg-gradient-to-br from-slate-50 to-slate-100 mb-4">
+        <div *ngIf="products().length === 0" class="col-span-full py-20 text-center text-slate-300">
+            <div class="inline-block p-6 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 mb-4">
                 <svg class="w-16 h-16 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
             </div>
-            <h3 class="text-xl font-semibold text-slate-900 mb-2">No crops available</h3>
-            <p class="text-slate-500 max-w-md mx-auto">Check back later for fresh harvest from our verified farmers.</p>
+            <h3 class="text-xl font-semibold text-white mb-2">No crops available</h3>
+            <p class="text-slate-400 max-w-md mx-auto">Check back later for fresh harvest from our verified farmers.</p>
         </div>
       </div>
     </div>
